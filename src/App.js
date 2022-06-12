@@ -1,11 +1,12 @@
 
 import './App.css';
+import Register from './Register';
 
 function App() {
   return (
-    <div className="App">
-    kanak
-    </div>
+  <main className='App'>
+      <Register/>
+  </main>
   );
 }
 
