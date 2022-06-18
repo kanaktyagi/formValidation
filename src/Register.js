@@ -43,14 +43,35 @@ function Register() {
         setErrorMsg('')
      },[user,pwd,matchPwd])
 
+     const handleSubmit = async (e) => {
+         e.preventDefault();
+         const v1 = USER_REGEX.test(user)
+         const v2 = PWD_REGEX.test(pwd)
+         if( !v1 || !v2) {
+             setErrorMsg("Invalid Error")
+             return;
+         }
+         console.log(user,pwd)
+         setSuccess(true)
+     }
+
   return (
+      <>
+      { success ? (
+          <section>
+              <h1>Success!</h1>
+              <p>
+                  <a href="#">Sign In</a>
+              </p>
+          </section>
+      ) :
     <section>
        <p ref={errRef}
        className={errMsg ? "errmsg": "offscreen"}
        aria-live="assertive"
        >{errMsg}</p>
         <h1>Register</h1>
-        <form>
+        <form onSubmit={handleSubmit}>
             <label htmlFor='username'>Username:
             <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
             <FontAwesomeIcon icon={faTimes} className={validName || !user ? "hide" : "invalid"} />
@@ -118,8 +139,17 @@ function Register() {
                  <FontAwesomeIcon icon={faInfoCircle} />
                  Must match the first password input field.
             </p>
+            <button disabled={!validName || !validPwd || !validMatch ? true : false}>
+                Sign up
+            </button>
         </form>
+        Already registered? <br/>
+        <span className='link'>
+            <a href='#'>Sign In</a>
+        </span>
     </section>
+    }
+    </>   
   )
 }
 
